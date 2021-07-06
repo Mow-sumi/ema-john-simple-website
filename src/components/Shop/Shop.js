@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import fakeData from '../../fakeData';
 import './Shop.css';
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
-import  {addToDatabaseCart}  from '../../utilities/databaseManager';
+import  {addToDatabaseCart, getDatabaseCart}  from '../../utilities/databaseManager';
 
 const Shop = () => {
 
@@ -12,19 +12,47 @@ const Shop = () => {
     const [ cart, setCart] = useState([]);
 
 
-    const handleAddProduct = (product) => {
-    //  console.log('click here',product);
-     const newCart = [...cart, product];
-     setCart(newCart);
 
-     const sameProduct = newCart.filter( pd => pd.key === product.key);
-     const count = sameProduct.length;
+
+    useEffect(()=> {
+        const savedCart = getDatabaseCart();
+        const productkeys = Object.keys(savedCart);
+        const previousCart =  productkeys.map( pdkey => {
+        const product = fakeData.find ( pd => pd.key === pdkey);
+        product.quantity = savedCart[pdkey];
+        return product;
+            // console.log( pdkey,savedCart[pdkey]);
+        })
+         setCart(previousCart);
+        // console.log(previousCart);
+    },[])
+
+
+        const handleAddProduct = (product) => {
+        const toBeAddedKey = product.key;
+   
+      const sameProduct = cart.find( pd => pd.key === toBeAddedKey);
+      let count = 1; 
+      let newCart;    
+
+     if(sameProduct){
+        const count = sameProduct.quantity + 1;
+        sameProduct.quantity = count;
+        const others = cart.filter( pd => pd.key !== toBeAddedKey )
+        newCart = [...others, sameProduct];
+    }
+    else{
+        product.quantity = 1;
+        newCart = [...cart, product];
+    }
+
+     setCart(newCart);
      addToDatabaseCart (product.key, count);
 
     }
 
     return (
-        <div className="shop-continer">
+        <div className="twin-continer">
             <div className="product-container">
 
                 {
