@@ -1,45 +1,45 @@
 const getUser = () => {
-    const existingUser = localStorage.getItem('userId');
-    if (existingUser) {
-        return existingUser; 
-    } else {
-        const newUser = 'user-' + new Date().getTime();
-        localStorage.setItem('userId', newUser)
-        return newUser;
-    }
+  const existingUser = localStorage.getItem('userId');
+  if (existingUser) {
+    return existingUser;
+  } else {
+    const newUser = 'user-' + new Date().getTime();
+    localStorage.setItem('userId', newUser)
+    return newUser;
+  }
 }
 
 
 const getDataKey = () => {
-    const userId = getUser();
-    return `emaJohn/carts/${userId}`
+  const userId = getUser();
+  return `emaJohn/carts/${userId}`
 }
 
 // push to local storage: a temporary place for database
 const getDatabaseCart = () => {
-    const dataKey = getDataKey();
-    const data = localStorage.getItem(dataKey) || "{}";
-    return JSON.parse(data);
+  const dataKey = getDataKey();
+  const data = localStorage.getItem(dataKey) || "{}";
+  return JSON.parse(data);
 }
 
 const addToDatabaseCart = (key, count) => {
-    const currentCart = getDatabaseCart();
-    currentCart[key] = count;
-    localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
+  const currentCart = getDatabaseCart();
+  currentCart[key] = count;
+  localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
 }
 
 const removeFromDatabaseCart = key => {
-    const currentCart = getDatabaseCart();
-    delete currentCart[key];
-    localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
+  const currentCart = getDatabaseCart();
+  delete currentCart[key];
+  localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
 }
 
 const clearLocalShoppingCart = (cart) => {
-    localStorage.removeItem(getDataKey());
+  localStorage.removeItem(getDataKey());
 }
 
 
-export { addToDatabaseCart, getDatabaseCart, removeFromDatabaseCart, clearLocalShoppingCart};
+export { addToDatabaseCart, getDatabaseCart, removeFromDatabaseCart, clearLocalShoppingCart };
 
 
 // polyfill to support older browser

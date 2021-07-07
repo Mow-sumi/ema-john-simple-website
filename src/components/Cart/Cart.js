@@ -45,11 +45,10 @@ const Cart = (props) => {
         <p><small>Tax + Vat : {tax}</small></p>
         <p>Total Price : {grandTotal}</p>
         <br/>
-
-      <Link to = "/review">
-      <button className="btn">Review Ordered</button>
-      </Link>
-
+           {
+               props.children
+           } 
+    
         </div>
     );
 };
