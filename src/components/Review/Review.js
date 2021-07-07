@@ -3,7 +3,6 @@ import fakeData from '../../fakeData';
 import { clearLocalShoppingCart, getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
-import { Link } from 'react-router-dom';
 import giphy from '../../images/giphy.gif';
 
 import './Review.css';
