@@ -13,7 +13,7 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
 
 
-
+      
 
     useEffect(() => {
         const savedCart = getDatabaseCart();
@@ -27,6 +27,8 @@ const Shop = () => {
         setCart(previousCart);
         // console.log(previousCart);
     }, [])
+
+    console.log(setProducts);
 
 
     const handleAddProduct = (product) => {
