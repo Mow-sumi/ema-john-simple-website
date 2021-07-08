@@ -9,7 +9,7 @@ import './Review.css';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
-    const [ orderPlaced , setOrderPlaced] = useState(false);
+    const [orderPlaced, setOrderPlaced] = useState(false);
 
     const handlePlaceOrder = () => {
         setCart([]);
@@ -17,10 +17,10 @@ const Review = () => {
         clearLocalShoppingCart();
     }
 
-        const handleRemoveProduct = (productKey) =>{
+    const handleRemoveProduct = (productKey) => {
         // console.log('clicked here',productKey);
 
-        const newCart = cart.filter( pd => pd.key !== productKey);
+        const newCart = cart.filter(pd => pd.key !== productKey);
         setCart(newCart);
         removeFromDatabaseCart(productKey);
     }
@@ -38,33 +38,33 @@ const Review = () => {
         setCart(cartProducts);
     }, []);
 
-    let ThankYou ;
-    if(orderPlaced) {
-       ThankYou = <img src={giphy} alt="" /> 
+    let ThankYou;
+    if (orderPlaced) {
+        ThankYou = <img src={giphy} alt="" />
     }
 
     return (
         <div className="twin-continer">
-       
-         <div className="product-container">
-                    {
-                            cart.map(pd => <ReviewItem
-                                key={pd.key} 
-                            handleRemoveProduct = {handleRemoveProduct}
-                                product={pd} />)
-                        }
+
+            <div className="product-container">
+                {
+                    cart.map(pd => <ReviewItem
+                        key={pd.key}
+                        handleRemoveProduct={handleRemoveProduct}
+                        product={pd} />)
+                }
 
 
-                        {
-                            ThankYou
-                        }
-         </div>
+                {
+                    ThankYou
+                }
+            </div>
 
-         <div  className="cart-container">
-          <Cart cart={cart}>
-        <button className="btn" onClick ={handlePlaceOrder}>Place Ordered</button>
-          </Cart>
-         </div>
+            <div className="cart-container">
+                <Cart cart={cart}>
+                    <button className="btn" onClick={handlePlaceOrder}>Place Ordered</button>
+                </Cart>
+            </div>
 
         </div>
     );

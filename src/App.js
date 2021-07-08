@@ -35,15 +35,15 @@ function App() {
             <Inventory />
           </Route >
 
-            <Route exact path="/">
-              <Shop />
-            </Route>
+          <Route exact path="/">
+            <Shop />
+          </Route>
 
-            <Route path ="/product/:productKey">
-              <ProductDetails/>
-            </Route>
+          <Route path="/product/:productKey">
+            <ProductDetails />
+          </Route>
 
-            <Route path="*">
+          <Route path="*">
             <NoMatch />
           </Route>
 
